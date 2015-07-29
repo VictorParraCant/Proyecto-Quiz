@@ -12,40 +12,46 @@ var port      = ( url[5] || null );
 var host      = ( url[4] || null );
 var storage   = process.env.DATABASE_STORAGE;
 
-// Cargar Modelo ORM
+// Modelo ORM
 var Sequelize = require('sequelize');
 
-// Usar BBDD SQLite o PostgresSQL:
-var sequelize = new Sequelize(DB_name, user, pwd,
-    { dialect: protocol,
-      protocol: protocol,
-      port: port,
-      host: host,
-      storage: storage, //solo SQLite (.env)
-      omitNull: true  //solo Postgres
-    });
+// Usar BBDD SQLite o PostgreSQL
+var sequelize = new Sequelize(DB_name, user, pwd, {
+  dialect   : protocol,
+  protocol  : protocol,
+  port      : port,
+  host      : host,
+  storage   : storage, // solo SQLite (.env)
+  omitNull  : true    // solo PostgreSQL
+});
 
-// Importar la definicion de la tabla Quiz en quiz.js
-var Quiz = sequelize.import( path.join(__dirname,'quiz'));
+// Importar la definición de la tabla Quiz
+var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
 
-// Exporta definicion de tabla Quiz
+// Exportar la definición de la tabla Quiz
 exports.Quiz = Quiz;
 
-// sequelize.sync() crea e inicializa la tabla de preguntas en DB
-sequelize.sync().success(function() {
-  // success(..) ejecuta el manejador una vez creada la tabla
-  Quiz.count().success(function (count){
-    if (count === 0) {
-      // la tabla se inicializa solo si esta vacia
-      Quiz.create({ pregunta: 'Capital de Italia',
-                    respuesta: 'Roma'
-                  });
-      Quiz.create({ pregunta: 'Capital de Portugal',
-                    respuesta: 'Lisboa'
-                  })
-      .then(function() {
-        console.log('Base de datos inicializada')
+// Crea e inicializa la tabla de preguntas en la DB
+sequelize
+  .sync()
+  .success(function () {
+    Quiz
+      .count()
+      .success(function (count) {
+
+        // La tabla se inicializa sólo si está vacía
+        if (count === 0) {
+          Quiz.create({
+            pregunta  : "Capital de Italia",
+            respuesta : "Roma"
+          });
+          Quiz.create({
+            pregunta  : "Capital de Portugal",
+            respuesta : "Lisboa"
+          })
+          .then(function () {
+            console.log("Base de datos inicializada")
+          });
+        }
       });
-    };
   });
-});
