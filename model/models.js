@@ -23,12 +23,10 @@ var sequelize = new Sequelize(DB_name, user, pwd,
       host: host,
       storage: storage, //solo SQLite (.env)
       omitNull: true  //solo Postgres
-    }
-  );
+    });
 
 // Importar la definicion de la tabla Quiz en quiz.js
-var quiz_path = path.join(__dirname,'quiz');
-var Quiz = sequelize.import(quiz_path);
+var Quiz = sequelize.import( path.join(__dirname,'quiz'));
 
 // Exporta definicion de tabla Quiz
 exports.Quiz = Quiz;
@@ -41,8 +39,13 @@ sequelize.sync().success(function() {
       // la tabla se inicializa solo si esta vacia
       Quiz.create({ pregunta: 'Capital de Italia',
                     respuesta: 'Roma'
+                  });
+      Quiz.create({ pregunta: 'Capital de Portugal',
+                    respuesta: 'Lisboa'
                   })
-      .success(function(){console.console.log('Base de datos inicializada')});
+      .then(function() {
+        console.log('Base de datos inicializada')
+      });
     };
   });
 });
