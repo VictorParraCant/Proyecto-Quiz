@@ -1,4 +1,4 @@
-var models = require('../model/models');
+var models = require('../models/models');
 
 // Autoload :id
 exports.load = function(req, res, next, quizId) {
@@ -37,7 +37,8 @@ exports.index = function(req, res){
 exports.new = function (req, res) {
   var quiz = models.Quiz.build({ // Creamos el objeto
     pregunta: 'Pregunta',
-    respuesta: 'Respuesta'
+    respuesta: 'Respuesta',
+    tema: 'otro'
   });
   res.render('quizes/new', { quiz: quiz , errors: []});
 };
@@ -54,7 +55,7 @@ exports.create = function (req, res) {
     }else{
       quiz
         .save({
-          fields: ["pregunta", "respuesta"]
+          fields: ["pregunta", "respuesta", "tema"]
         })
         .then(function () {
           res.redirect('/quizes/');
@@ -103,7 +104,7 @@ exports.update = function(req, res) {
         res.render('quizes/edit', {quiz: req.quiz, errors: err.errors});
       } else {
         req.quiz     // save: guarda campos pregunta y respuesta en DB
-        .save( {fields: ["pregunta", "respuesta"]})
+        .save( {fields: ["pregunta", "respuesta", "tema"]})
         .then( function(){
           res.redirect('/quizes');
         });

@@ -31,3 +31,4 @@ npm-debug.log
 
 # Data Base
 quiz.sqlite
+.env
