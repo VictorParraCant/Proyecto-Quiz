@@ -1,5 +1,4 @@
 // Definición del modelo Quiz
-
 module.exports = function (sequelize, DataTypes) {
 
   var quizModel = {
@@ -14,4 +13,4 @@ module.exports = function (sequelize, DataTypes) {
   };
 
   return sequelize.define('Quiz', quizModel);
-}
+};
