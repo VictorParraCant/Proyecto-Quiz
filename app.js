@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var partials = require('express-partials');
 var methodOverride = require('method-override');
 var session = require('express-session');
+var moment = require('moment');
 
 var routes = require('./routes/index');
 
@@ -41,6 +42,23 @@ app.use(function(req, res, next) {
   }
   // Hacer visible req.session en las vistas
   res.locals.session = req.session;
+  next();
+});
+
+// Middleware de auto-logout
+app.use(function (req, res, next) {
+  if (req.session.user) {
+    if (req.session.user.time) {
+      var timeDiff = moment().diff(req.session.user.time, 'minutes');
+      if (timeDiff >= 2) {
+        delete req.session.user;
+        res.redirect(req.session.redir.toString());
+        return;
+      }
+    } else {
+      req.session.user.time = moment().format();
+    }
+  }
   next();
 });
 

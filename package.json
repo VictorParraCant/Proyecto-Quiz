@@ -18,6 +18,7 @@
     "express-partials": "^0.3.0",
     "express-session": "^1.11.3",
     "method-override": "^2.3.4",
+    "moment": "^2.10.6",
     "morgan": "~1.5.3",
     "pg": "*",
     "pg-hstore": "^2.3.2",
