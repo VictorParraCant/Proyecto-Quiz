@@ -2,15 +2,12 @@
   "name": "Proyecto-Quiz",
   "version": "0.0.0",
   "private": true,
-  "scripts": {
-    "start": "node ./bin/www"
-  },
   "engines": {
     "node": "0.10.x",
     "npm": "1.4.x"
   },
-  "devDependecies": {
-    "sqlite3": "*"
+  "scripts": {
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.12.4",
@@ -19,11 +16,15 @@
     "ejs": "~2.3.1",
     "express": "~4.12.4",
     "express-partials": "^0.3.0",
+    "express-session": "^1.11.3",
     "method-override": "^2.3.4",
     "morgan": "~1.5.3",
     "pg": "*",
     "pg-hstore": "^2.3.2",
-    "sequelize": "*",
+    "sequelize": "^2.0.0-rc4",
     "serve-favicon": "~2.2.1"
+  },
+  "devDependencies": {
+    "sqlite3": "*"
   }
 }

@@ -12,14 +12,15 @@ module.exports = function (sequelize, DataTypes) {
     },
     tema : {
       type: DataTypes.ENUM,
-      values: ['otro', 'humanidades', 'ocio', 'ciencia', 'geografia', 'tecnologia'],
+      values: ['otro', 'humanidades', 'ocio', 'ciencia', 'tecnologia'],
       allowNull: false,
       defaultValue: 'otro',
       validate: {
-        isIn: [['otro', 'humanidades', 'ocio', 'ciencia', 'geografia', 'tecnologia']]
+        isIn: [['otro', 'humanidades', 'ocio', 'ciencia', 'tecnologia']]
       }
     }
   };
 
   return sequelize.define('Quiz', quizModel);
+
 };
